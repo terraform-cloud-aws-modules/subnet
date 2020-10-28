@@ -1,5 +1,5 @@
 variable "subnet_cidr" {
-  type    = "list"
+  type    = list
   default = []
 }
 

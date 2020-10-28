@@ -1,5 +1,7 @@
+data "aws_availability_zones" "available" {}
+
 resource "aws_subnet" "this" {
-  count                   = "${length(var.subnet_cidr)}"
+  count                   = length(var.subnet_cidr)
   vpc_id                  = var.vpc_id
   cidr_block              = var.subnet_cidr[count.index]
   availability_zone       = data.aws_availability_zones.available.names[count.index]
@@ -7,7 +9,7 @@ resource "aws_subnet" "this" {
 
   tags = merge(
     {
-      "Name" = format("%s", var.subnet_name${count.index + 1})
+			"Name" = "${var.subnet_name}-${count.index + 1}"
     },
     var.tags,
   )
